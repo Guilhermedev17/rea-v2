@@ -12,87 +12,87 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-gradient-to-r from-green-700 to-blue-700 text-white py-8 md:py-10"
+            className="bg-gray-900 text-gray-300 py-6 md:py-10 border-t border-gray-800"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
                     {/* Linha 1: Marca e Descrição */}
-                    <div className="space-y-3">
-                        <div className="relative h-10 md:h-12 w-40 md:w-48">
-                            <Image
-                                src="/rea_logo_nova_transparente.png"
-                                alt="R&A Logo"
-                                fill
-                                className="object-contain object-left border-none"
-                                sizes="(max-width: 768px) 160px, 192px"
-                            />
-                        </div>
-                        <p className="text-green-50 text-sm leading-relaxed">
+                    <div className="space-y-2 md:space-y-4">
+                        <h4 className="font-bold text-lg md:text-xl text-white tracking-wide">R&A Serviços</h4>
+                        <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
                             Especializada em serviços elétricos com foco na segurança, qualidade e preservação ambiental.
                         </p>
                     </div>
 
                     {/* Linha 2: Serviços */}
                     <div>
-                        <h4 className="font-bold text-base md:text-lg mb-3 text-white">Serviços</h4>
-                        <ul className="space-y-2 text-sm text-green-50">
-                            <li>Supressão em Vegetação Manual</li>
-                            <li>Poda e Corte de Árvores</li>
-                            <li>Recuperação de Acesso em Vegetação</li>
-                            <li>Consertos de Porteiras</li>
+                        <h4 className="font-bold text-base md:text-lg mb-3 md:mb-4 text-white tracking-wide">Serviços</h4>
+                        <ul className="space-y-2 text-sm text-gray-400">
+                            <li className="hover:text-emerald-400 transition-colors cursor-pointer">Supressão em Vegetação</li>
+                            <li className="hover:text-emerald-400 transition-colors cursor-pointer">Poda e Corte de Árvores</li>
+                            <li className="hover:text-emerald-400 transition-colors cursor-pointer">Recuperação de Acesso</li>
+                            <li className="hover:text-emerald-400 transition-colors cursor-pointer">Consertos de Porteiras</li>
                         </ul>
                     </div>
 
                     {/* Linha 3: Empresa */}
                     <div>
-                        <h4 className="font-bold text-base md:text-lg mb-3 text-white">Empresa</h4>
-                        <ul className="space-y-2 text-sm text-green-50">
-                            <li>10+ Anos de Experiência</li>
-                            <li>Empresa Amiga da Natureza</li>
-                            <li>Linhas de Transmissão</li>
-                            <li>Redes de Distribuição MT/BT</li>
+                        <h4 className="font-bold text-base md:text-lg mb-3 md:mb-4 text-white tracking-wide">Empresa</h4>
+                        <ul className="space-y-2 text-sm text-gray-400">
+                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span> 10+ Anos de Experiência</li>
+                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span> Amiga da Natureza</li>
+                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span> Linhas de Transmissão</li>
+                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span> Redes MT/BT</li>
                         </ul>
                     </div>
 
-                    {/* Linha 4: Contactos */}
-                    <div>
-                        <h4 className="font-bold text-base md:text-lg mb-3 text-white">Contato</h4>
-                        <div className="space-y-3 text-sm text-green-50">
-                            <div className="flex items-center">
-                                <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
-                                <span>(27) 99874-6554</span>
+                    {/* Linha 4: Contato */}
+                    <div className="sm:col-span-2 lg:col-span-2">
+                        <h4 className="font-bold text-base md:text-lg mb-3 md:mb-4 text-white tracking-wide">Contato e Endereços</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            {/* Coluna Esquerda Contato */}
+                            <div className="space-y-4 text-sm text-gray-400">
+                                <div className="flex items-center group">
+                                    <div className="p-2 bg-gray-800/50 rounded-lg group-hover:bg-emerald-900/30 transition-colors mr-3">
+                                        <Phone className="w-4 h-4 text-emerald-500" />
+                                    </div>
+                                    <span className="group-hover:text-emerald-400 transition-colors">(27) 99874-6554</span>
+                                </div>
+                                <div className="flex items-start">
+                                    <MapPin className="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-gray-500" />
+                                    <span className="leading-relaxed opacity-80 max-w-[200px]">
+                                        Alameda Buganville, 37<br />
+                                        Centro, Sooretama/ES<br />
+                                        CEP: 29927-000
+                                    </span>
+                                </div>
                             </div>
-                            <div className="flex items-center">
-                                <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
-                                <span>(27) 99984-0445</span>
-                            </div>
-                            <div className="flex items-center">
-                                <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
-                                <span>rea@rea.srv.br</span>
-                            </div>
-                            <div className="flex items-start pt-1">
-                                <MapPin className="w-4 h-4 mr-3 mt-1 flex-shrink-0" />
-                                <span className="leading-relaxed">
-                                    Alameda Buganville, 37<br />
-                                    Centro, Sooretama/ES<br />
-                                    CEP: 29927-000
-                                </span>
-                            </div>
-                            <div className="flex items-start pt-1">
-                                <MapPin className="w-4 h-4 mr-3 mt-1 flex-shrink-0" />
-                                <span className="leading-relaxed">
-                                    Av. Cerejeira, 9 andar, Sala 916<br />
-                                    Torre I, Movelar, Linhares-ES<br />
-                                    CEP: 29906-014
-                                </span>
+
+                            {/* Coluna Direita Contato */}
+                            <div className="space-y-4 text-sm text-gray-400">
+                                <div className="flex items-center group">
+                                    <div className="p-2 bg-gray-800/50 rounded-lg group-hover:bg-emerald-900/30 transition-colors mr-3">
+                                        <Mail className="w-4 h-4 text-emerald-500" />
+                                    </div>
+                                    <span className="group-hover:text-emerald-400 transition-colors">rea@rea.srv.br</span>
+                                </div>
+                                <div className="flex items-start">
+                                    <MapPin className="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-gray-500" />
+                                    <span className="leading-relaxed opacity-80 max-w-[200px]">
+                                        Av. Cerejeira, Torre I<br />
+                                        Movelar, Linhares/ES<br />
+                                        CEP: 29906-014
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Copyright e Fundo */}
-                <div className="border-t border-green-600/50 mt-8 pt-6 text-center text-sm text-green-50">
+                <div className="border-t border-gray-800 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500">
                     <p>© {new Date().getFullYear()} R&A Serviços e Manutenções Elétricas. Todos os direitos reservados.</p>
+                    <p className="mt-2 md:mt-0 opacity-60">Design Modernizado</p>
                 </div>
             </div>
         </motion.footer>

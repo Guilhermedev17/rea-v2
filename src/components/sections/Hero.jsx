@@ -24,7 +24,7 @@ export default function Hero() {
     return (
         <motion.section
             id="home"
-            className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
+            className="relative py-16 md:py-20 lg:py-28 overflow-hidden"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -32,7 +32,7 @@ export default function Hero() {
         >
             <div className="container mx-auto px-4">
                 <motion.div
-                    className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center"
+                    className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center"
                     variants={staggerContainer}
                     initial="initial"
                     whileInView="animate"
@@ -41,14 +41,15 @@ export default function Hero() {
                     <motion.div className="space-y-6 md:space-y-8" variants={fadeInUp}>
                         <motion.div className="space-y-3 md:space-y-4" variants={staggerContainer}>
                             <motion.div variants={scaleIn}>
-                                <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                                <div className="inline-flex items-center px-5 py-2.5 bg-white/40 backdrop-blur-md border border-white/50 text-emerald-800 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(16,185,129,0.15)] hover:bg-white/60 transition-all duration-500 hover:-translate-y-1">
                                     <motion.div
                                         animate={{ rotate: [0, 10, -10, 0] }}
                                         transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                                        className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-full p-1.5 mr-3 shadow-sm"
                                     >
-                                        <Leaf className="w-4 h-4 mr-2" />
+                                        <Leaf className="w-4 h-4 text-white" />
                                     </motion.div>
-                                    <span className="font-semibold text-sm">Empresa Amiga da Natureza</span>
+                                    <span className="font-semibold text-sm tracking-wide">Empresa Amiga da Natureza</span>
                                 </div>
                             </motion.div>
                             <motion.h1

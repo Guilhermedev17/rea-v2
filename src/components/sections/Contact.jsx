@@ -36,10 +36,13 @@ export default function Contact() {
                     whileInView="animate"
                     viewport={{ once: true, amount: 0.3 }}
                 >
-                    <motion.div variants={scaleIn}>
-                        <div className="inline-flex items-center bg-gradient-to-r from-green-500 to-teal-600 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 mb-4">
-                            <MessageCircle className="w-4 h-4 mr-2" />
-                            <span className="font-semibold">Entre em Contato</span>
+                    <motion.div variants={scaleIn} className="flex justify-center">
+                        <div className="relative group cursor-default mb-4">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-teal-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                            <div className="relative inline-flex items-center bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300">
+                                <MessageCircle className="w-5 h-5 mr-2" />
+                                <span className="font-semibold tracking-wide">Entre em Contato</span>
+                            </div>
                         </div>
                     </motion.div>
                     <motion.h2
@@ -64,14 +67,12 @@ export default function Contact() {
                     viewport={{ once: true, amount: 0.3 }}
                 >
                     <motion.div
-                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        className="bg-white/80 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 text-center group transition-all duration-300 relative"
                         variants={scaleIn}
-                        whileHover={{
-                            y: -3,
-                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
-                        }}
+                        whileHover={{ y: -5 }}
                         transition={{ duration: 0.3 }}
                     >
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_15px_30px_-10px_rgba(34,197,94,0.15)] pointer-events-none -m-2 z-[-1]"></div>
                         <motion.div
                             className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
                             whileHover={{ rotate: 5, scale: 1.1 }}
@@ -85,14 +86,12 @@ export default function Contact() {
                     </motion.div>
 
                     <motion.div
-                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        className="bg-white/80 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 text-center group transition-all duration-300 relative"
                         variants={scaleIn}
-                        whileHover={{
-                            y: -3,
-                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
-                        }}
+                        whileHover={{ y: -5 }}
                         transition={{ duration: 0.3 }}
                     >
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_15px_30px_-10px_rgba(59,130,246,0.15)] pointer-events-none -m-2 z-[-1]"></div>
                         <motion.div
                             className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
                             whileHover={{ rotate: 5, scale: 1.1 }}
@@ -105,14 +104,12 @@ export default function Contact() {
                     </motion.div>
 
                     <motion.div
-                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        className="bg-white/80 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 text-center group transition-all duration-300 relative"
                         variants={scaleIn}
-                        whileHover={{
-                            y: -3,
-                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
-                        }}
+                        whileHover={{ y: -5 }}
                         transition={{ duration: 0.3 }}
                     >
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_15px_30px_-10px_rgba(249,115,22,0.15)] pointer-events-none -m-2 z-[-1]"></div>
                         <motion.div
                             className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
                             whileHover={{ rotate: 5, scale: 1.1 }}
@@ -125,14 +122,12 @@ export default function Contact() {
                     </motion.div>
 
                     <motion.div
-                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        className="bg-white/80 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 text-center group transition-all duration-300 relative"
                         variants={scaleIn}
-                        whileHover={{
-                            y: -3,
-                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
-                        }}
+                        whileHover={{ y: -5 }}
                         transition={{ duration: 0.3 }}
                     >
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_15px_30px_-10px_rgba(249,115,22,0.15)] pointer-events-none -m-2 z-[-1]"></div>
                         <motion.div
                             className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
                             whileHover={{ rotate: 5, scale: 1.1 }}
