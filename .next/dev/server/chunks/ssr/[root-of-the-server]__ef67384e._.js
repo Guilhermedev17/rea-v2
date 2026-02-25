@@ -80,22 +80,19 @@ function Header() {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
     const scrollToSection = (sectionId)=>{
-        const element = document.getElementById(sectionId);
-        if (element) {
-            const header = document.querySelector('header');
-            // Como as seções já têm padding (py-16 a py-24), a rolagem deve casar
-            // exatamente o fundo do menu com o topo da seção (sem margens extras).
-            const headerHeight = header ? header.offsetHeight : 100;
-            const elementPosition = element.offsetTop - headerHeight;
-            window.scrollTo({
-                top: Math.max(0, elementPosition),
-                behavior: 'smooth'
-            });
-            // Close mobile menu if it's open
-            if (isMobileMenuOpen) {
-                setIsMobileMenuOpen(false);
+        setIsMobileMenuOpen(false);
+        setTimeout(()=>{
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 100;
+                const elementPosition = element.offsetTop - headerHeight;
+                window.scrollTo({
+                    top: Math.max(0, elementPosition),
+                    behavior: 'smooth'
+                });
             }
-        }
+        }, 150); // Small delay to let the menu closing animation start and avoid layout jumps
     };
     const navLinks = [
         {
@@ -151,39 +148,39 @@ function Header() {
                     duration: 0.5
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-2 md:py-3",
+                    className: "w-full px-4 sm:px-6 lg:px-12 py-2 md:py-3",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
-                        className: "flex items-center justify-between",
+                        className: "flex items-center justify-between w-full max-w-[1440px] mx-auto",
                         variants: staggerContainer,
                         initial: "initial",
                         animate: "animate",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center relative w-[160px] md:w-[220px] h-10 md:h-12",
+                                className: "flex items-center relative h-10 md:h-12 w-[160px] md:w-[220px] lg:-ml-[calc(min(2rem,100vw-1440px))] xl:-ml-8 2xl:-ml-12 lg:-translate-x-4 xl:-translate-x-8",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                                     variants: scaleIn,
-                                    className: "absolute top-1/2 -translate-y-1/2 left-0 transition-transform duration-300 hover:scale-[1.02]",
+                                    className: "transition-transform duration-300 hover:scale-[1.02] absolute left-0",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         src: "/rea_logo_oficial_transparente.png",
                                         alt: "R&A Logo",
                                         width: 400,
                                         height: 150,
                                         quality: 100,
-                                        className: "h-16 md:h-20 w-auto object-contain object-left drop-shadow-md",
+                                        className: "h-16 md:h-20 w-auto object-contain object-left drop-shadow-md origin-left",
                                         priority: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 81,
+                                        lineNumber: 78,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Header.jsx",
-                                    lineNumber: 80,
+                                    lineNumber: 77,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 79,
+                                lineNumber: 76,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].nav, {
@@ -200,18 +197,18 @@ function Header() {
                                                 className: "absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                                lineNumber: 107,
+                                                lineNumber: 104,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, item.id, true, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 101,
+                                        lineNumber: 98,
                                         columnNumber: 33
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 94,
+                                lineNumber: 91,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -228,14 +225,14 @@ function Header() {
                                                 className: "w-4 h-4 mr-1.5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                                lineNumber: 122,
+                                                lineNumber: 119,
                                                 columnNumber: 33
                                             }, this),
                                             "WhatsApp"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 116,
+                                        lineNumber: 113,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -248,14 +245,14 @@ function Header() {
                                                 className: "w-4 h-4 mr-1.5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                                lineNumber: 131,
+                                                lineNumber: 128,
                                                 columnNumber: 33
                                             }, this),
                                             "Webmail"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 125,
+                                        lineNumber: 122,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -266,40 +263,40 @@ function Header() {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Header.jsx",
-                                            lineNumber: 141,
+                                            lineNumber: 138,
                                             columnNumber: 37
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Header.jsx",
-                                            lineNumber: 143,
+                                            lineNumber: 140,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 135,
+                                        lineNumber: 132,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 112,
+                                lineNumber: 109,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/Header.jsx",
-                        lineNumber: 73,
+                        lineNumber: 70,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/Header.jsx",
-                    lineNumber: 72,
+                    lineNumber: 69,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/Header.jsx",
-                lineNumber: 66,
+                lineNumber: 63,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -325,19 +322,23 @@ function Header() {
                         className: "p-4 flex flex-col space-y-2",
                         children: [
                             navLinks.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>scrollToSection(item.id),
-                                    className: "text-left py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors",
+                                    type: "button",
+                                    onClick: (e)=>{
+                                        e.preventDefault();
+                                        scrollToSection(item.id);
+                                    },
+                                    className: "text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors",
                                     children: item.label
                                 }, item.id, false, {
                                     fileName: "[project]/src/components/layout/Header.jsx",
-                                    lineNumber: 163,
+                                    lineNumber: 160,
                                     columnNumber: 33
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "h-px bg-gray-100 my-2"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 171,
+                                lineNumber: 172,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -350,14 +351,14 @@ function Header() {
                                         className: "w-5 h-5 mr-3 text-emerald-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 178,
+                                        lineNumber: 179,
                                         columnNumber: 33
                                     }, this),
                                     "Falar no WhatsApp"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 172,
+                                lineNumber: 173,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -370,36 +371,36 @@ function Header() {
                                         className: "w-5 h-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 187,
+                                        lineNumber: 188,
                                         columnNumber: 33
                                     }, this),
                                     "Acessar Webmail"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 181,
+                                lineNumber: 182,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/Header.jsx",
-                        lineNumber: 161,
+                        lineNumber: 158,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/Header.jsx",
-                    lineNumber: 154,
+                    lineNumber: 151,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/Header.jsx",
-                lineNumber: 152,
+                lineNumber: 149,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/Header.jsx",
-        lineNumber: 60,
+        lineNumber: 57,
         columnNumber: 9
     }, this);
 }

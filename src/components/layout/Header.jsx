@@ -28,24 +28,21 @@ export default function Header() {
     };
 
     const scrollToSection = (sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            const header = document.querySelector('header');
-            // Como as seções já têm padding (py-16 a py-24), a rolagem deve casar
-            // exatamente o fundo do menu com o topo da seção (sem margens extras).
-            const headerHeight = header ? header.offsetHeight : 100;
-            const elementPosition = element.offsetTop - headerHeight;
+        setIsMobileMenuOpen(false);
 
-            window.scrollTo({
-                top: Math.max(0, elementPosition),
-                behavior: 'smooth'
-            });
+        setTimeout(() => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 100;
+                const elementPosition = element.offsetTop - headerHeight;
 
-            // Close mobile menu if it's open
-            if (isMobileMenuOpen) {
-                setIsMobileMenuOpen(false);
+                window.scrollTo({
+                    top: Math.max(0, elementPosition),
+                    behavior: 'smooth'
+                });
             }
-        }
+        }, 150); // Small delay to let the menu closing animation start and avoid layout jumps
     };
 
     const navLinks = [
@@ -69,22 +66,22 @@ export default function Header() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-2 md:py-3">
+                <div className="w-full px-4 sm:px-6 lg:px-12 py-2 md:py-3">
                     <motion.div
-                        className="flex items-center justify-between"
+                        className="flex items-center justify-between w-full max-w-[1440px] mx-auto"
                         variants={staggerContainer}
                         initial="initial"
                         animate="animate"
                     >
-                        <div className="flex items-center relative w-[160px] md:w-[220px] h-10 md:h-12">
-                            <motion.div variants={scaleIn} className="absolute top-1/2 -translate-y-1/2 left-0 transition-transform duration-300 hover:scale-[1.02]">
+                        <div className="flex items-center relative h-10 md:h-12 w-[160px] md:w-[220px] lg:-ml-[calc(min(2rem,100vw-1440px))] xl:-ml-8 2xl:-ml-12 lg:-translate-x-4 xl:-translate-x-8">
+                            <motion.div variants={scaleIn} className="transition-transform duration-300 hover:scale-[1.02] absolute left-0">
                                 <Image
                                     src="/rea_logo_oficial_transparente.png"
                                     alt="R&A Logo"
                                     width={400}
                                     height={150}
                                     quality={100}
-                                    className="h-16 md:h-20 w-auto object-contain object-left drop-shadow-md"
+                                    className="h-16 md:h-20 w-auto object-contain object-left drop-shadow-md origin-left"
                                     priority
                                 />
                             </motion.div>
@@ -162,8 +159,12 @@ export default function Header() {
                             {navLinks.map((item) => (
                                 <button
                                     key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className="text-left py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors"
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        scrollToSection(item.id);
+                                    }}
+                                    className="text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors"
                                 >
                                     {item.label}
                                 </button>

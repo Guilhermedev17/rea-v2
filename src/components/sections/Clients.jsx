@@ -25,7 +25,10 @@ export default function Clients() {
         { src: "/neoenergia_logo_sem_fundo.png", alt: "Neoenergia" },
         { src: "/santa_maria_logo_new_transparent.png", alt: "Santa Maria" },
         { src: "/linhares_geracao_logo_sem_fundo.png", alt: "Linhares Geração" },
-        { src: "/tropicalia_logo_official.png", alt: "Tropicalia Transmissora" }
+        { src: "/tropicalia_logo_official.png", alt: "Tropicalia Transmissora" },
+        { src: "/logo-cemig-1024.png", alt: "Cemig", className: "scale-[1.8]" },
+        { src: "/logo_povoacao_energia.png", alt: "Povoação Energia", className: "scale-[1.5]" },
+        { src: "/engelmig_logo.png", alt: "Engelmig Energia", className: "scale-[1.5]" }
     ];
 
     return (
@@ -76,7 +79,7 @@ export default function Clients() {
                         {[...logos, ...logos, ...logos, ...logos].map((logo, index) => (
                             <div
                                 key={index}
-                                className="flex justify-center items-center w-[140px] md:w-[180px] h-20 md:h-24 flex-shrink-0 relative group"
+                                className="flex justify-center items-center w-[180px] md:w-[200px] lg:w-[180px] h-24 md:h-28 lg:h-24 flex-shrink-0 relative group"
                             >
                                 <div className="relative w-full h-full transition-all duration-500 hover:scale-110 cursor-pointer">
                                     <Image
@@ -84,7 +87,7 @@ export default function Clients() {
                                         alt={logo.alt}
                                         fill
                                         sizes="(max-width: 768px) 140px, 180px"
-                                        className="object-contain"
+                                        className={`object-contain ${logo.className || ''}`}
                                     />
                                 </div>
                             </div>

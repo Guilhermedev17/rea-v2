@@ -12,18 +12,28 @@ export default function EmpresaCarousel() {
     const [loadedImages, setLoadedImages] = useState(new Set());
     const [isMobile, setIsMobile] = useState(false);
 
-    const images = [
+    const [shuffledImages, setShuffledImages] = useState([]);
+
+    const baseImages = [
         { src: "/imagem1.jpg", alt: "Equipe R&A em Treinamento de Segurança" },
         { src: "/imagem2.jpg", alt: "Profissional R&A com Veículo da Empresa" },
         { src: "/imagem3.jpg", alt: "Equipe R&A com Veículos e Equipamentos" },
         { src: "/imagem4.jpg", alt: "Frota de Veículos R&A" },
-        { src: "/imagem5.jpeg", alt: "Equipe R&A em Treinamento de Altura" }
+        { src: "/imagem5.jpeg", alt: "Equipe R&A em Treinamento de Altura" },
+        { src: "/imagem6.jpeg", alt: "Equipe R&A em Campo 1" },
+        { src: "/imagem7.jpeg", alt: "Equipe R&A em Campo 2" },
+        { src: "/imagem8.jpeg", alt: "Equipe R&A Operacional" }
     ];
 
-    // Preload das imagens
+    // Embaralhar as imagens logo após a montagem do cliente (para não quebrar
+    // a hidratação do SSR do Next.js entre o servidor e o React local)
+    // e depois dar inicio ao preload e afins.
     useEffect(() => {
+        const shuffled = [...baseImages].sort(() => Math.random() - 0.5);
+        setShuffledImages(shuffled);
+
         const preloadImages = () => {
-            images.forEach((image, index) => {
+            shuffled.forEach((image, index) => {
                 const img = new window.Image();
                 img.onload = () => {
                     setLoadedImages(prev => new Set([...prev, index]));
@@ -46,15 +56,15 @@ export default function EmpresaCarousel() {
 
     // Timer do carousel com pause
     useEffect(() => {
-        if (isPaused) return;
+        if (isPaused || shuffledImages.length === 0) return;
         const timer = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % images.length);
+            setCurrentImage((prev) => (prev + 1) % shuffledImages.length);
         }, 5000);
         return () => clearInterval(timer);
-    }, [images.length, isPaused]);
+    }, [shuffledImages.length, isPaused]);
 
-    const nextImage = () => setCurrentImage((prev) => (prev + 1) % images.length);
-    const prevImage = () => setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+    const nextImage = () => setCurrentImage((prev) => (prev + 1) % shuffledImages.length);
+    const prevImage = () => setCurrentImage((prev) => (prev - 1 + shuffledImages.length) % shuffledImages.length);
 
     return (
         <div
@@ -72,7 +82,7 @@ export default function EmpresaCarousel() {
 
             {/* Container das imagens com Cross-Fade cinematográfico e Ken Burns lento */}
             <div className="relative w-full aspect-video lg:aspect-[4/3] overflow-hidden">
-                {images.map((image, index) => (
+                {shuffledImages.map((image, index) => (
                     <motion.div
                         key={index}
                         className="absolute inset-0 w-full h-full"

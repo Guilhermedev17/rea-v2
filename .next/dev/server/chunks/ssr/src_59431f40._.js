@@ -22,7 +22,8 @@ function EmpresaCarousel() {
     const [isPaused, setIsPaused] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [loadedImages, setLoadedImages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(new Set());
     const [isMobile, setIsMobile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const images = [
+    const [shuffledImages, setShuffledImages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const baseImages = [
         {
             src: "/imagem1.jpg",
             alt: "Equipe R&A em Treinamento de Segurança"
@@ -42,12 +43,30 @@ function EmpresaCarousel() {
         {
             src: "/imagem5.jpeg",
             alt: "Equipe R&A em Treinamento de Altura"
+        },
+        {
+            src: "/imagem6.jpeg",
+            alt: "Equipe R&A em Campo 1"
+        },
+        {
+            src: "/imagem7.jpeg",
+            alt: "Equipe R&A em Campo 2"
+        },
+        {
+            src: "/imagem8.jpeg",
+            alt: "Equipe R&A Operacional"
         }
     ];
-    // Preload das imagens
+    // Embaralhar as imagens logo após a montagem do cliente (para não quebrar
+    // a hidratação do SSR do Next.js entre o servidor e o React local)
+    // e depois dar inicio ao preload e afins.
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const shuffled = [
+            ...baseImages
+        ].sort(()=>Math.random() - 0.5);
+        setShuffledImages(shuffled);
         const preloadImages = ()=>{
-            images.forEach((image, index)=>{
+            shuffled.forEach((image, index)=>{
                 const img = new window.Image();
                 img.onload = ()=>{
                     setLoadedImages((prev)=>new Set([
@@ -71,17 +90,17 @@ function EmpresaCarousel() {
     }, []);
     // Timer do carousel com pause
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (isPaused) return;
+        if (isPaused || shuffledImages.length === 0) return;
         const timer = setInterval(()=>{
-            setCurrentImage((prev)=>(prev + 1) % images.length);
+            setCurrentImage((prev)=>(prev + 1) % shuffledImages.length);
         }, 5000);
         return ()=>clearInterval(timer);
     }, [
-        images.length,
+        shuffledImages.length,
         isPaused
     ]);
-    const nextImage = ()=>setCurrentImage((prev)=>(prev + 1) % images.length);
-    const prevImage = ()=>setCurrentImage((prev)=>(prev - 1 + images.length) % images.length);
+    const nextImage = ()=>setCurrentImage((prev)=>(prev + 1) % shuffledImages.length);
+    const prevImage = ()=>setCurrentImage((prev)=>(prev - 1 + shuffledImages.length) % shuffledImages.length);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden bg-gray-900 group",
         style: {
@@ -97,22 +116,22 @@ function EmpresaCarousel() {
                         children: "Carregando fotos..."
                     }, void 0, false, {
                         fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                        lineNumber: 68,
+                        lineNumber: 78,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                    lineNumber: 67,
+                    lineNumber: 77,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                lineNumber: 66,
+                lineNumber: 76,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative w-full aspect-video lg:aspect-[4/3] overflow-hidden",
-                children: images.map((image, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                children: shuffledImages.map((image, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                         className: "absolute inset-0 w-full h-full",
                         initial: {
                             opacity: index === 0 ? 1 : 0
@@ -150,36 +169,36 @@ function EmpresaCarousel() {
                                     priority: index === 0
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                                    lineNumber: 93,
+                                    lineNumber: 103,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                                lineNumber: 88,
+                                lineNumber: 98,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 pointer-events-none z-20"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                                lineNumber: 106,
+                                lineNumber: 116,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, index, true, {
                         fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                        lineNumber: 76,
+                        lineNumber: 86,
                         columnNumber: 21
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-                lineNumber: 74,
+                lineNumber: 84,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/ui/EmpresaCarousel.jsx",
-        lineNumber: 60,
+        lineNumber: 70,
         columnNumber: 9
     }, this);
 }
@@ -1080,6 +1099,21 @@ function Clients() {
         {
             src: "/tropicalia_logo_official.png",
             alt: "Tropicalia Transmissora"
+        },
+        {
+            src: "/logo-cemig-1024.png",
+            alt: "Cemig",
+            className: "scale-[1.8]"
+        },
+        {
+            src: "/logo_povoacao_energia.png",
+            alt: "Povoação Energia",
+            className: "scale-[1.5]"
+        },
+        {
+            src: "/engelmig_logo.png",
+            alt: "Engelmig Energia",
+            className: "scale-[1.5]"
         }
     ];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].section, {
@@ -1123,7 +1157,7 @@ function Clients() {
                                             className: "w-4 h-4 mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/Clients.jsx",
-                                            lineNumber: 50,
+                                            lineNumber: 53,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1131,18 +1165,18 @@ function Clients() {
                                             children: "Nossos Clientes"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/Clients.jsx",
-                                            lineNumber: 51,
+                                            lineNumber: 54,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/sections/Clients.jsx",
-                                    lineNumber: 49,
+                                    lineNumber: 52,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/sections/Clients.jsx",
-                                lineNumber: 48,
+                                lineNumber: 51,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1150,7 +1184,7 @@ function Clients() {
                                 children: "Parcerias de Sucesso"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/sections/Clients.jsx",
-                                lineNumber: 54,
+                                lineNumber: 57,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1158,18 +1192,18 @@ function Clients() {
                                 children: "A confiança nos nossos serviços geraram parcerias de muito sucesso"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/sections/Clients.jsx",
-                                lineNumber: 57,
+                                lineNumber: 60,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/sections/Clients.jsx",
-                        lineNumber: 42,
+                        lineNumber: 45,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/sections/Clients.jsx",
-                    lineNumber: 41,
+                    lineNumber: 44,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1194,14 +1228,14 @@ function Clients() {
                             className: "absolute left-0 top-0 w-24 md:w-48 h-full bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"
                         }, void 0, false, {
                             fileName: "[project]/src/components/sections/Clients.jsx",
-                            lineNumber: 71,
+                            lineNumber: 74,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute right-0 top-0 w-24 md:w-48 h-full bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"
                         }, void 0, false, {
                             fileName: "[project]/src/components/sections/Clients.jsx",
-                            lineNumber: 72,
+                            lineNumber: 75,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1212,7 +1246,7 @@ function Clients() {
                                 ...logos,
                                 ...logos
                             ].map((logo, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex justify-center items-center w-[140px] md:w-[180px] h-20 md:h-24 flex-shrink-0 relative group",
+                                    className: "flex justify-center items-center w-[180px] md:w-[200px] lg:w-[180px] h-24 md:h-28 lg:h-24 flex-shrink-0 relative group",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "relative w-full h-full transition-all duration-500 hover:scale-110 cursor-pointer",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1220,42 +1254,42 @@ function Clients() {
                                             alt: logo.alt,
                                             fill: true,
                                             sizes: "(max-width: 768px) 140px, 180px",
-                                            className: "object-contain"
+                                            className: `object-contain ${logo.className || ''}`
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/Clients.jsx",
-                                            lineNumber: 82,
+                                            lineNumber: 85,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/sections/Clients.jsx",
-                                        lineNumber: 81,
+                                        lineNumber: 84,
                                         columnNumber: 33
                                     }, this)
                                 }, index, false, {
                                     fileName: "[project]/src/components/sections/Clients.jsx",
-                                    lineNumber: 77,
+                                    lineNumber: 80,
                                     columnNumber: 29
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/sections/Clients.jsx",
-                            lineNumber: 74,
+                            lineNumber: 77,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/sections/Clients.jsx",
-                    lineNumber: 63,
+                    lineNumber: 66,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/sections/Clients.jsx",
-            lineNumber: 40,
+            lineNumber: 43,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/sections/Clients.jsx",
-        lineNumber: 32,
+        lineNumber: 35,
         columnNumber: 9
     }, this);
 }
@@ -2244,10 +2278,10 @@ function Footer() {
                     className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "space-y-2 md:space-y-4",
+                            className: "space-y-3 md:space-y-4 text-center md:text-left",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                    className: "font-bold text-lg md:text-xl text-white tracking-wide",
+                                    className: "font-bold text-xl md:text-xl text-white tracking-wide",
                                     children: "R&A Serviços"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2255,7 +2289,7 @@ function Footer() {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-gray-400 text-sm leading-relaxed max-w-sm",
+                                    className: "text-gray-400 text-sm leading-relaxed max-w-sm mx-auto md:mx-0",
                                     children: "Especializada em serviços elétricos com foco na segurança, qualidade e preservação ambiental."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2269,9 +2303,10 @@ function Footer() {
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-center md:text-left bg-gray-800/20 md:bg-transparent p-4 md:p-0 rounded-2xl md:rounded-none",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                    className: "font-bold text-base md:text-lg mb-3 md:mb-4 text-white tracking-wide",
+                                    className: "font-bold text-base md:text-lg mb-4 md:mb-4 text-white tracking-wide",
                                     children: "Serviços"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2279,10 +2314,10 @@ function Footer() {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                    className: "space-y-2 text-sm text-gray-400",
+                                    className: "space-y-3 md:space-y-2 text-sm text-gray-400",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            className: "hover:text-emerald-400 transition-colors cursor-pointer",
+                                            className: "hover:text-emerald-400 transition-colors cursor-pointer py-1 md:py-0",
                                             children: "Supressão em Vegetação"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2290,7 +2325,7 @@ function Footer() {
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            className: "hover:text-emerald-400 transition-colors cursor-pointer",
+                                            className: "hover:text-emerald-400 transition-colors cursor-pointer py-1 md:py-0",
                                             children: "Poda e Corte de Árvores"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2298,7 +2333,7 @@ function Footer() {
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            className: "hover:text-emerald-400 transition-colors cursor-pointer",
+                                            className: "hover:text-emerald-400 transition-colors cursor-pointer py-1 md:py-0",
                                             children: "Recuperação de Acesso"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2306,7 +2341,7 @@ function Footer() {
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            className: "hover:text-emerald-400 transition-colors cursor-pointer",
+                                            className: "hover:text-emerald-400 transition-colors cursor-pointer py-1 md:py-0",
                                             children: "Consertos de Porteiras"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2326,9 +2361,10 @@ function Footer() {
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-center md:text-left border-b md:border-b-0 border-gray-800 pb-8 md:pb-0",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                    className: "font-bold text-base md:text-lg mb-3 md:mb-4 text-white tracking-wide",
+                                    className: "font-bold text-base md:text-lg mb-4 md:mb-4 text-white tracking-wide",
                                     children: "Empresa"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2336,7 +2372,7 @@ function Footer() {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                    className: "space-y-2 text-sm text-gray-400",
+                                    className: "space-y-3 md:space-y-2 text-sm text-gray-400 flex flex-col items-center md:items-start",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                             className: "flex items-center",
@@ -2419,10 +2455,10 @@ function Footer() {
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "sm:col-span-2 lg:col-span-2",
+                            className: "sm:col-span-2 lg:col-span-2 text-center md:text-left mt-2 md:mt-0",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                    className: "font-bold text-base md:text-lg mb-3 md:mb-4 text-white tracking-wide",
+                                    className: "font-bold text-base md:text-lg mb-6 md:mb-4 text-white tracking-wide",
                                     children: "Contato e Endereços"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2430,18 +2466,18 @@ function Footer() {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "grid grid-cols-1 sm:grid-cols-2 gap-6",
+                                    className: "grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-6",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "space-y-4 text-sm text-gray-400",
+                                            className: "space-y-4 text-sm text-gray-400 bg-gray-800/10 md:bg-transparent p-4 md:p-0 rounded-2xl md:rounded-none",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center group",
+                                                    className: "flex flex-col md:flex-row items-center group gap-2 md:gap-0",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "p-2 bg-gray-800/50 rounded-lg group-hover:bg-emerald-900/30 transition-colors mr-3",
+                                                            className: "p-2.5 md:p-2 bg-gray-800/50 rounded-lg group-hover:bg-emerald-900/30 transition-colors md:mr-3 inline-block",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"], {
-                                                                className: "w-4 h-4 text-emerald-500"
+                                                                className: "w-5 h-5 md:w-4 md:h-4 text-emerald-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/layout/Footer.jsx",
                                                                 lineNumber: 57,
@@ -2453,7 +2489,7 @@ function Footer() {
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "group-hover:text-emerald-400 transition-colors",
+                                                            className: "group-hover:text-emerald-400 transition-colors text-base md:text-sm font-medium m:font-normal text-emerald-100 md:text-gray-400",
                                                             children: "(27) 99874-6554"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2467,10 +2503,10 @@ function Footer() {
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-start",
+                                                    className: "flex flex-col md:flex-row items-center md:items-start text-center md:text-left",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
-                                                            className: "w-4 h-4 mr-3 mt-1 flex-shrink-0 text-gray-500"
+                                                            className: "w-5 h-5 md:w-4 md:h-4 md:mr-3 mb-2 md:mb-0 md:mt-1 flex-shrink-0 text-gray-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/layout/Footer.jsx",
                                                             lineNumber: 62,
@@ -2511,15 +2547,15 @@ function Footer() {
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "space-y-4 text-sm text-gray-400",
+                                            className: "space-y-4 text-sm text-gray-400 bg-gray-800/10 md:bg-transparent p-4 md:p-0 rounded-2xl md:rounded-none",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center group",
+                                                    className: "flex flex-col md:flex-row items-center group gap-2 md:gap-0",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "p-2 bg-gray-800/50 rounded-lg group-hover:bg-emerald-900/30 transition-colors mr-3",
+                                                            className: "p-2.5 md:p-2 bg-gray-800/50 rounded-lg group-hover:bg-emerald-900/30 transition-colors md:mr-3 inline-block",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"], {
-                                                                className: "w-4 h-4 text-emerald-500"
+                                                                className: "w-5 h-5 md:w-4 md:h-4 text-emerald-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/layout/Footer.jsx",
                                                                 lineNumber: 75,
@@ -2531,7 +2567,7 @@ function Footer() {
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "group-hover:text-emerald-400 transition-colors",
+                                                            className: "group-hover:text-emerald-400 transition-colors text-base md:text-sm font-medium m:font-normal text-emerald-100 md:text-gray-400",
                                                             children: "rea@rea.srv.br"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/layout/Footer.jsx",
@@ -2545,10 +2581,10 @@ function Footer() {
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-start",
+                                                    className: "flex flex-col md:flex-row items-center md:items-start text-center md:text-left",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
-                                                            className: "w-4 h-4 mr-3 mt-1 flex-shrink-0 text-gray-500"
+                                                            className: "w-5 h-5 md:w-4 md:h-4 md:mr-3 mb-2 md:mb-0 md:mt-1 flex-shrink-0 text-gray-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/layout/Footer.jsx",
                                                             lineNumber: 80,
@@ -2607,29 +2643,27 @@ function Footer() {
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "border-t border-gray-800 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            children: [
-                                "© ",
-                                new Date().getFullYear(),
-                                " R&A Serviços e Manutenções Elétricas. Todos os direitos reservados."
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/layout/Footer.jsx",
-                            lineNumber: 94,
-                            columnNumber: 21
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "mt-2 md:mt-0 opacity-60",
-                            children: "Design Modernizado"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/layout/Footer.jsx",
-                            lineNumber: 95,
-                            columnNumber: 21
-                        }, this)
-                    ]
-                }, void 0, true, {
+                    className: "border-t border-gray-800 mt-10 md:mt-8 pt-8 md:pt-6 flex items-center justify-center md:justify-start text-center md:text-left text-sm text-gray-500 pb-4 md:pb-0",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        children: [
+                            "© ",
+                            new Date().getFullYear(),
+                            " R&A Serviços e Manutenções Elétricas.",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {
+                                className: "md:hidden"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/layout/Footer.jsx",
+                                lineNumber: 94,
+                                columnNumber: 90
+                            }, this),
+                            " Todos os direitos reservados."
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/layout/Footer.jsx",
+                        lineNumber: 94,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/src/components/layout/Footer.jsx",
                     lineNumber: 93,
                     columnNumber: 17
