@@ -1,0 +1,150 @@
+"use client";
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
+
+const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }
+};
+
+const scaleIn = {
+    initial: { opacity: 0, scale: 0.95 },
+    animate: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } }
+};
+
+const staggerContainer = {
+    animate: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } }
+};
+
+export default function Contact() {
+    return (
+        <motion.section
+            id="contact"
+            className="py-12 md:py-16 bg-gradient-to-br from-gray-50 to-blue-50"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+        >
+            <div className="container mx-auto px-4">
+                <motion.div
+                    className="text-center mb-12"
+                    variants={staggerContainer}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true, amount: 0.3 }}
+                >
+                    <motion.div variants={scaleIn}>
+                        <div className="inline-flex items-center bg-gradient-to-r from-green-500 to-teal-600 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 mb-4">
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            <span className="font-semibold">Entre em Contato</span>
+                        </div>
+                    </motion.div>
+                    <motion.h2
+                        className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4"
+                        variants={fadeInUp}
+                    >
+                        Fale Conosco
+                    </motion.h2>
+                    <motion.p
+                        className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4 md:px-0"
+                        variants={fadeInUp}
+                    >
+                        Estamos prontos para atender suas necessidades em serviços elétricos especializados
+                    </motion.p>
+                </motion.div>
+
+                <motion.div
+                    className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto"
+                    variants={staggerContainer}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true, amount: 0.3 }}
+                >
+                    <motion.div
+                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        variants={scaleIn}
+                        whileHover={{
+                            y: -3,
+                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
+                        }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <motion.div
+                            className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
+                            whileHover={{ rotate: 5, scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <Phone className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                        </motion.div>
+                        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Telefone</h3>
+                        <p className="text-sm md:text-base text-gray-600">(27) 99874-6554</p>
+                        <p className="text-sm md:text-base text-gray-600">(27) 99984-0445</p>
+                    </motion.div>
+
+                    <motion.div
+                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        variants={scaleIn}
+                        whileHover={{
+                            y: -3,
+                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
+                        }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <motion.div
+                            className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
+                            whileHover={{ rotate: 5, scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <Mail className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                        </motion.div>
+                        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">E-mail</h3>
+                        <p className="text-sm md:text-base text-gray-600">rea@rea.srv.br</p>
+                    </motion.div>
+
+                    <motion.div
+                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        variants={scaleIn}
+                        whileHover={{
+                            y: -3,
+                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
+                        }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <motion.div
+                            className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
+                            whileHover={{ rotate: 5, scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                        </motion.div>
+                        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">Endereço</h3>
+                        <p className="text-xs md:text-sm text-gray-600 leading-relaxed">Alameda Buganville, 37<br />Centro, Sooretama/ES<br />CEP: 29927-000</p>
+                    </motion.div>
+
+                    <motion.div
+                        className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-gray-100 text-center group"
+                        variants={scaleIn}
+                        whileHover={{
+                            y: -3,
+                            boxShadow: "0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 8px -5px rgba(0, 0, 0, 0.04)"
+                        }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <motion.div
+                            className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4"
+                            whileHover={{ rotate: 5, scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                        </motion.div>
+                        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">Endereço de Apoio</h3>
+                        <p className="text-xs md:text-sm text-gray-600 leading-relaxed">Av. Cerejeira, 9 andar, Sala 916<br />Torre I, Movelar<br />Linhares-ES, CEP 29906-014</p>
+                    </motion.div>
+                </motion.div>
+            </div>
+        </motion.section>
+    );
+}
