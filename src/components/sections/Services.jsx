@@ -6,24 +6,24 @@ import { motion } from 'framer-motion';
 import { Scissors, TreePine, Zap, Wrench, Leaf } from 'lucide-react';
 
 const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
+    initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }
 };
 
 const scaleIn = {
-    initial: { opacity: 0, scale: 0.95 },
+    initial: { opacity: 0, scale: 0.98 },
     animate: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } }
 };
 
 const staggerContainer = {
-    animate: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } }
+    animate: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
 };
 
 export default function Services() {
     return (
         <motion.section
             id="services"
-            className="py-16 md:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-blue-50"
+            className="py-16 md:py-20 lg:py-24 bg-slate-50"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -33,50 +33,43 @@ export default function Services() {
                 {/* Hero Image Section */}
                 <motion.div
                     className="relative mb-16 md:mb-24"
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6 }}
                 >
                     <div className="relative overflow-hidden rounded-2xl md:rounded-3xl shadow-xl min-h-[16rem] md:min-h-[20rem] flex items-center group">
                         <Image
                             src="/vegetation_management_high_quality.jpg"
                             alt="Supressão em vegetação manual"
                             fill
-                            className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                            className="object-cover"
                             sizes="(max-width: 1200px) 100vw, 1200px"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent pointer-events-none"></div>
+                        {/* Overlay Gradiente Direcional: Escuro na esquerda (leitura), transparente na direita (beleza) */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,23,42,0.95)] via-[rgba(15,23,42,0.7)] to-transparent pointer-events-none"></div>
 
                         <div className="relative z-10 p-6 sm:p-10 md:p-14 lg:p-16 max-w-3xl">
                             <motion.div
-                                variants={staggerContainer}
+                                variants={fadeInUp}
                                 initial="initial"
                                 whileInView="animate"
-                                viewport={{ once: true, amount: 0.3 }}
+                                viewport={{ once: true, amount: 0.2 }}
                             >
-                                <motion.div variants={fadeInUp} className="flex items-center space-x-4 mb-4 md:mb-6">
-                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center border border-white/20">
-                                        <Scissors className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
-                                    </div>
-                                    <span className="text-emerald-400 font-semibold tracking-wider text-sm md:text-base uppercase">
+                                <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-emerald-300 rounded-full mb-4 md:mb-6 shadow-sm">
+                                    <Scissors className="w-4 h-4 mr-2" />
+                                    <span className="font-semibold tracking-wide text-xs md:text-sm uppercase">
                                         Nossa Especialidade
                                     </span>
-                                </motion.div>
+                                </div>
 
-                                <motion.h3
-                                    className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-white leading-tight"
-                                    variants={fadeInUp}
-                                >
+                                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-white leading-tight">
                                     Serviços Especializados
-                                </motion.h3>
+                                </h3>
 
-                                <motion.p
-                                    className="text-sm md:text-base lg:text-lg text-slate-300 max-w-2xl leading-relaxed"
-                                    variants={fadeInUp}
-                                >
+                                <p className="text-sm md:text-base lg:text-lg text-slate-300 max-w-2xl leading-relaxed">
                                     Soluções sustentáveis e integradas para o setor elétrico, sempre priorizando a excelência operacional e o máximo equilíbrio com o meio ambiente.
-                                </motion.p>
+                                </p>
                             </motion.div>
                         </div>
                     </div>
@@ -91,74 +84,74 @@ export default function Services() {
                     viewport={{ once: true, amount: 0.3 }}
                 >
                     <motion.div
-                        className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg group transition-all duration-300"
+                        className="bg-white/80 backdrop-blur-md rounded-xl md:rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 group transition-all duration-300 relative flex flex-col items-start"
                         variants={scaleIn}
                         whileHover={{ y: -8, scale: 1.02 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(34,197,94,0.3)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
+                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(16,185,129,0.2)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
                         <motion.div
-                            className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4"
+                            className="w-12 h-12 md:w-16 md:h-16 bg-emerald-500/10 rounded-lg md:rounded-xl flex items-center justify-center mb-4 border border-emerald-500/20"
                             whileHover={{ rotate: 5, scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <TreePine className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                            <TreePine className="w-6 h-6 md:w-8 md:h-8 text-emerald-600" />
                         </motion.div>
-                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-green-600 transition-colors leading-tight">Supressão em Vegetação Manual</h4>
+                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-emerald-600 transition-colors leading-tight">Supressão em Vegetação Manual</h4>
                         <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors leading-relaxed">Remoção manual especializada de vegetação em faixas de servidão</p>
                     </motion.div>
 
                     <motion.div
-                        className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg group transition-all duration-300 relative"
+                        className="bg-white/80 backdrop-blur-md rounded-xl md:rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 group transition-all duration-300 relative flex flex-col items-start"
                         variants={scaleIn}
                         whileHover={{ y: -8, scale: 1.02 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(249,115,22,0.3)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
+                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(245,158,11,0.2)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
                         <motion.div
-                            className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4"
+                            className="w-12 h-12 md:w-16 md:h-16 bg-amber-500/10 rounded-lg md:rounded-xl flex items-center justify-center mb-4 border border-amber-500/20"
                             whileHover={{ rotate: 5, scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <Scissors className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                            <Scissors className="w-6 h-6 md:w-8 md:h-8 text-amber-600" />
                         </motion.div>
-                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-orange-600 transition-colors leading-tight">Poda e Corte de Árvores</h4>
+                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-amber-600 transition-colors leading-tight">Poda e Corte de Árvores</h4>
                         <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors leading-relaxed">Poda e corte de árvores em linha de transmissão e redes de distribuição de energia elétrica</p>
                     </motion.div>
 
                     <motion.div
-                        className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg group transition-all duration-300 relative"
+                        className="bg-white/80 backdrop-blur-md rounded-xl md:rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 group transition-all duration-300 relative flex flex-col items-start"
                         variants={scaleIn}
                         whileHover={{ y: -8, scale: 1.02 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(59,130,246,0.3)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
+                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(14,165,233,0.2)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
                         <motion.div
-                            className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4"
+                            className="w-12 h-12 md:w-16 md:h-16 bg-sky-500/10 rounded-lg md:rounded-xl flex items-center justify-center mb-4 border border-sky-500/20"
                             whileHover={{ rotate: 5, scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <Zap className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                            <Zap className="w-6 h-6 md:w-8 md:h-8 text-sky-600" />
                         </motion.div>
-                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-blue-600 transition-colors leading-tight">Recuperação de Acesso em Vegetação</h4>
+                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-sky-600 transition-colors leading-tight">Recuperação de Acesso em Vegetação</h4>
                         <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors leading-relaxed">Recuperação de acesso em vegetação, aterramento e seccionamento de cercas</p>
                     </motion.div>
 
                     <motion.div
-                        className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg group transition-all duration-300 relative"
+                        className="bg-white/80 backdrop-blur-md rounded-xl md:rounded-2xl p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 group transition-all duration-300 relative flex flex-col items-start"
                         variants={scaleIn}
                         whileHover={{ y: -8, scale: 1.02 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(168,85,247,0.3)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
+                        <div className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_20px_40px_-12px_rgba(139,92,246,0.2)] pointer-events-none -mr-4 -ml-4 -mt-4 -mb-4 z-[-1]"></div>
                         <motion.div
-                            className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4"
+                            className="w-12 h-12 md:w-16 md:h-16 bg-violet-500/10 rounded-lg md:rounded-xl flex items-center justify-center mb-4 border border-violet-500/20"
                             whileHover={{ rotate: 5, scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <Wrench className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                            <Wrench className="w-6 h-6 md:w-8 md:h-8 text-violet-600" />
                         </motion.div>
-                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-purple-600 transition-colors leading-tight">Consertos de Porteiras</h4>
+                        <h4 className="font-bold text-base md:text-lg mb-2 text-gray-900 group-hover:text-violet-600 transition-colors leading-tight">Consertos de Porteiras</h4>
                         <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors leading-relaxed">Consertos especializados de porteiras e colchetes</p>
                     </motion.div>
                 </motion.div>

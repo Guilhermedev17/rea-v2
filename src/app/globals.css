@@ -42,8 +42,10 @@
 }
 
 :root {
-  --radius: 1rem; /* Softened border radius */
-  --background: oklch(0.985 0.002 247.839); /* Off-white for softer contrast */
+  --radius: 1rem;
+  /* Softened border radius */
+  --background: oklch(0.985 0.002 247.839);
+  /* Off-white for softer contrast */
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -77,9 +79,11 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.01 250); /* Dark mode soft background */
+  --background: oklch(0.13 0.01 250);
+  /* Dark mode soft background */
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.16 0.01 250); /* Lift cards slightly */
+  --card: oklch(0.16 0.01 250);
+  /* Lift cards slightly */
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
@@ -114,6 +118,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground tracking-normal;
     line-height: 1.6;
@@ -125,13 +130,14 @@
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
 }
 
 .animate-scroll-logos {
-  animation: scroll-logos 20s linear infinite;
+  animation: scroll-logos 40s linear infinite;
   display: flex;
   width: fit-content;
   will-change: transform;
@@ -149,10 +155,10 @@
 /* Força a animação sempre ativa no mobile */
 @media (max-width: 768px) {
   .animate-scroll-logos {
-    animation-duration: 20s !important;
+    animation-duration: 40s !important;
     animation-play-state: running !important;
   }
-  
+
   .logos-container:hover .animate-scroll-logos {
     animation-play-state: running !important;
   }
@@ -195,7 +201,12 @@ body {
   font-variant-numeric: oldstyle-nums;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   font-weight: 600;
   @apply tracking-tight;

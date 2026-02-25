@@ -31,7 +31,9 @@ export default function Header() {
         const element = document.getElementById(sectionId);
         if (element) {
             const header = document.querySelector('header');
-            const headerHeight = header ? header.offsetHeight + 20 : 140;
+            // Como as seções já têm padding (py-16 a py-24), a rolagem deve casar
+            // exatamente o fundo do menu com o topo da seção (sem margens extras).
+            const headerHeight = header ? header.offsetHeight : 100;
             const elementPosition = element.offsetTop - headerHeight;
 
             window.scrollTo({
@@ -56,40 +58,41 @@ export default function Header() {
 
     return (
         <motion.header
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl"
-            initial={{ y: -100, opacity: 0 }}
+            className="fixed top-0 left-0 w-full z-50"
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
             <motion.div
-                className="bg-white/80 backdrop-blur-md border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-2xl"
+                className="bg-white/85 backdrop-blur-md border-b border-gray-100/50 shadow-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.4 }}
+                transition={{ duration: 0.5 }}
             >
-                <div className="px-4 py-3 md:py-4">
+                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-2 md:py-3">
                     <motion.div
                         className="flex items-center justify-between"
                         variants={staggerContainer}
                         initial="initial"
                         animate="animate"
                     >
-                        <div className="flex items-center">
-                            <motion.div variants={scaleIn} className="transition-transform duration-300 hover:scale-[1.02]">
+                        <div className="flex items-center relative w-[160px] md:w-[220px] h-10 md:h-12">
+                            <motion.div variants={scaleIn} className="absolute top-1/2 -translate-y-1/2 left-0 transition-transform duration-300 hover:scale-[1.02]">
                                 <Image
-                                    src="/rea_logo_nova_transparente.png"
+                                    src="/rea_logo_oficial_transparente.png"
                                     alt="R&A Logo"
-                                    width={220}
-                                    height={60}
-                                    className="h-10 md:h-12 lg:h-14 w-auto object-contain scale-110 md:scale-125 origin-left"
+                                    width={400}
+                                    height={150}
+                                    quality={100}
+                                    className="h-16 md:h-20 w-auto object-contain object-left drop-shadow-md"
                                     priority
                                 />
                             </motion.div>
                         </div>
 
-                        {/* Navegação Desktop (Movida para o centro) */}
+                        {/* Navegação Desktop */}
                         <motion.nav
-                            className="hidden lg:flex items-center space-x-8 absolute left-1/2 -translate-x-1/2"
+                            className="hidden lg:flex items-center space-x-8"
                             variants={staggerContainer}
                             initial="initial"
                             animate="animate"
@@ -111,22 +114,22 @@ export default function Header() {
                             variants={fadeInUp}
                         >
                             <a
-                                href="https://webmail.rea.srv.br/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hidden lg:flex items-center text-sm font-medium text-gray-500 hover:text-emerald-600 transition-colors"
-                            >
-                                <Mail className="w-4 h-4 mr-1.5" />
-                                Webmail
-                            </a>
-                            <a
                                 href="https://wa.me/27998746554"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hidden md:inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-sm"
+                                className="hidden lg:flex items-center px-4 py-2 bg-emerald-50/50 text-emerald-700 hover:bg-emerald-100/60 border border-emerald-200/30 rounded-full transition-all duration-300 font-medium text-sm"
                             >
                                 <MessageCircle className="w-4 h-4 mr-1.5" />
                                 WhatsApp
+                            </a>
+                            <a
+                                href="https://webmail.rea.srv.br/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hidden md:inline-flex items-center px-5 py-2.5 bg-orange-50 text-orange-600 border border-orange-200/60 rounded-full shadow-[0_4px_14px_0_rgba(255,237,213,0.39)] hover:shadow-[0_6px_20px_rgba(255,237,213,0.23)] hover:bg-orange-100/50 transition-all duration-300 hover:-translate-y-0.5 active:scale-95 font-semibold text-sm"
+                            >
+                                <Mail className="w-4 h-4 mr-1.5" />
+                                Webmail
                             </a>
 
                             <button
@@ -167,22 +170,22 @@ export default function Header() {
                             ))}
                             <div className="h-px bg-gray-100 my-2"></div>
                             <a
-                                href="https://webmail.rea.srv.br/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center py-3 px-4 text-gray-600 hover:text-emerald-700 hover:bg-emerald-50/50 rounded-xl font-medium transition-colors"
-                            >
-                                <Mail className="w-5 h-5 mr-3 text-emerald-600" />
-                                Acessar Webmail
-                            </a>
-                            <a
                                 href="https://wa.me/27998746554"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center py-3 px-4 mt-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-medium shadow-md"
+                                className="flex items-center justify-center py-3 px-4 bg-emerald-50/50 text-emerald-700 hover:bg-emerald-100/60 border border-emerald-200/30 rounded-xl font-medium shadow-sm transition-colors"
                             >
-                                <MessageCircle className="w-5 h-5 mr-2" />
+                                <MessageCircle className="w-5 h-5 mr-3 text-emerald-600" />
                                 Falar no WhatsApp
+                            </a>
+                            <a
+                                href="https://webmail.rea.srv.br/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center py-3 px-4 mt-4 bg-orange-50 text-orange-600 border border-orange-200/60 hover:bg-orange-100/50 rounded-xl font-semibold shadow-sm transition-colors"
+                            >
+                                <Mail className="w-5 h-5 mr-2" />
+                                Acessar Webmail
                             </a>
                         </div>
                     </motion.div>
