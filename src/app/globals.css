@@ -170,6 +170,12 @@
   perspective: 1000px;
 }
 
+html, body {
+  backface-visibility: visible;
+  perspective: none;
+  transform: none;
+}
+
 /* Melhora a nitidez das imagens durante animações */
 img {
   image-rendering: -webkit-optimize-contrast;
