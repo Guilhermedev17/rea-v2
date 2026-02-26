@@ -21,14 +21,14 @@ const staggerContainer = {
 
 export default function Clients() {
     const logos = [
-        { src: "/edp_logo_improved.png", alt: "EDP" },
-        { src: "/neoenergia_logo_sem_fundo.png", alt: "Neoenergia" },
-        { src: "/santa_maria_logo_new_transparent.png", alt: "Santa Maria" },
-        { src: "/linhares_geracao_logo_sem_fundo.png", alt: "Linhares Geração" },
-        { src: "/tropicalia_logo_official.png", alt: "Tropicalia Transmissora" },
-        { src: "/logo-cemig-1024.png", alt: "Cemig", className: "scale-[1.8]" },
-        { src: "/logo_povoacao_energia.png", alt: "Povoação Energia", className: "scale-[1.5]" },
-        { src: "/engelmig_logo.png", alt: "Engelmig Energia", className: "scale-[1.5]" }
+        { src: "/edp_logo_improved.webp", alt: "EDP" },
+        { src: "/neoenergia_logo_sem_fundo.webp", alt: "Neoenergia" },
+        { src: "/santa_maria_logo_new_transparent.webp", alt: "Santa Maria" },
+        { src: "/linhares_geracao_logo_sem_fundo.webp", alt: "Linhares Geração" },
+        { src: "/tropicalia_logo_official.webp", alt: "Tropicalia Transmissora" },
+        { src: "/logo-cemig-1024.webp", alt: "Cemig", className: "scale-[1.8]" },
+        { src: "/logo_povoacao_energia.webp", alt: "Povoação Energia", className: "scale-[1.5]" },
+        { src: "/engelmig_logo.webp", alt: "Engelmig Energia", className: "scale-[1.5]" }
     ];
 
     return (

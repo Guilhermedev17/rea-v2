@@ -8,13 +8,13 @@ import { X, ZoomIn, PlayCircle } from 'lucide-react';
 
 // Mock data: futuramente você pode substituir isso por imagens/vídeos reais importadas do seu banco
 const galleryItems = [
-    { id: 2, type: 'image', src: '/imagem1.jpg', category: 'redes', alt: 'Manutenção de Rede', title: 'Intervenção em Rede de Distribuição' },
-    { id: 3, type: 'image', src: '/imagem2.jpg', category: 'manutencao', alt: 'Trabalho preventivo', title: 'Poda Preventiva em Área Urbana' },
-    { id: 4, type: 'image', src: '/imagem3.jpg', category: 'supressao', alt: 'Corte de árvores', title: 'Corte de Árvores de Risco' },
-    { id: 5, type: 'image', src: '/imagem4.jpg', category: 'redes', alt: 'Equipe em campo', title: 'Manutenção em Alta Tensão' },
-    { id: 6, type: 'image', src: '/imagem5.jpeg', category: 'manutencao', alt: 'Inspeção', title: 'Inspeção de Rotina em Torres' },
-    { id: 7, type: 'image', src: '/imagem6.jpeg', category: 'supressao', alt: 'Limpeza mecanizada', title: 'Roçada Mecanizada' },
-    { id: 8, type: 'image', src: '/imagem7.jpeg', category: 'redes', alt: 'Linhas prontas', title: 'Rede Elétrica Liberada' },
+    { id: 2, type: 'image', src: '/imagem1.webp', category: 'redes', alt: 'Manutenção de Rede', title: 'Intervenção em Rede de Distribuição' },
+    { id: 3, type: 'image', src: '/imagem2.webp', category: 'manutencao', alt: 'Trabalho preventivo', title: 'Poda Preventiva em Área Urbana' },
+    { id: 4, type: 'image', src: '/imagem3.webp', category: 'supressao', alt: 'Corte de árvores', title: 'Corte de Árvores de Risco' },
+    { id: 5, type: 'image', src: '/imagem4.webp', category: 'redes', alt: 'Equipe em campo', title: 'Manutenção em Alta Tensão' },
+    { id: 6, type: 'image', src: '/imagem5.webp', category: 'manutencao', alt: 'Inspeção', title: 'Inspeção de Rotina em Torres' },
+    { id: 7, type: 'image', src: '/imagem6.webp', category: 'supressao', alt: 'Limpeza mecanizada', title: 'Roçada Mecanizada' },
+    { id: 8, type: 'image', src: '/imagem7.webp', category: 'redes', alt: 'Linhas prontas', title: 'Rede Elétrica Liberada' },
     { id: 12, type: 'image', src: '/fotos_galeria/WhatsApp Image 2026-02-25 at 18.35.14.jpeg', category: 'geral', alt: 'Trabalho R&A 1', title: 'Serviços R&A' },
     { id: 13, type: 'image', src: '/fotos_galeria/WhatsApp Image 2026-02-25 at 18.35.15 (1).jpeg', category: 'geral', alt: 'Trabalho R&A 2', title: 'Serviços R&A' },
     { id: 14, type: 'image', src: '/fotos_galeria/WhatsApp Image 2026-02-25 at 18.35.15 (2).jpeg', category: 'geral', alt: 'Trabalho R&A 3', title: 'Serviços R&A' },
@@ -86,17 +86,40 @@ export default function Gallery() {
         setMounted(true);
     }, []);
 
-    // Travar scroll do body quando o modal estiver aberto
+    // Travar scroll do body quando o modal estiver aberto (Suporte aprimorado para iOS/Mobile)
     useEffect(() => {
         if (selectedImage) {
+            const scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
             document.body.style.overflow = 'hidden';
+            // Guardar a posição para restaurar depois
+            document.body.dataset.scrollY = scrollY;
         } else {
-            document.body.style.overflow = 'unset';
+            const scrollY = document.body.dataset.scrollY;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            if (scrollY !== undefined) {
+                // Impede que o "scroll-smooth" global do Tailwind faça a página deslizar ao restaurar o scroll
+                document.documentElement.style.scrollBehavior = 'auto';
+                window.scrollTo({ top: parseInt(scrollY || '0', 10), behavior: 'instant' });
+
+                // Devolve a rolangem suave normal do site uma fração de segundo depois
+                setTimeout(() => {
+                    document.documentElement.style.scrollBehavior = '';
+                }, 10);
+            }
         }
 
         // Cleanup: Garante que o scroll volta ao normal ao desmontar componente ou fechar forçado
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
         };
     }, [selectedImage]);
 

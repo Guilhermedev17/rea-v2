@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, usePathname } from 'next/navigation';
@@ -25,6 +25,14 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
+
+    // Força a página a carregar sempre no topo, desativando a memória de scroll do navegador
+    useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -179,17 +187,28 @@ export default function Header() {
                     >
                         <div className="p-4 flex flex-col space-y-2">
                             {navLinks.map((item) => (
-                                <button
-                                    key={item.id}
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleNavigation(item);
-                                    }}
-                                    className="text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors"
-                                >
-                                    {item.label}
-                                </button>
+                                item.isPage ? (
+                                    <a
+                                        key={item.id}
+                                        href={item.href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors block"
+                                    >
+                                        {item.label}
+                                    </a>
+                                ) : (
+                                    <button
+                                        key={item.id}
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleNavigation(item);
+                                        }}
+                                        className="text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors"
+                                    >
+                                        {item.label}
+                                    </button>
+                                )
                             ))}
                             <div className="h-px bg-gray-100 my-2"></div>
                             <a
