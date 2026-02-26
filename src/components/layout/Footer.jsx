@@ -39,6 +39,11 @@ export default function Footer() {
                     <div className="text-center md:text-left border-b md:border-b-0 border-gray-800 pb-8 md:pb-0">
                         <h4 className="font-bold text-base md:text-lg mb-4 md:mb-4 text-white tracking-wide">Empresa</h4>
                         <ul className="space-y-3 md:space-y-2 text-sm text-gray-400 flex flex-col items-center md:items-start">
+                            <li className="flex items-center hover:text-emerald-400 transition-colors">
+                                <a href="/galeria" className="flex items-center w-full">
+                                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span> Nossa Galeria
+                                </a>
+                            </li>
                             <li className="flex items-center"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span> 10+ Anos de Experiência</li>
                             <li className="flex items-center"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span> Amiga da Natureza</li>
                             <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span> Linhas de Transmissão</li>

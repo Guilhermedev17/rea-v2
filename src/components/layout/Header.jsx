@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter, usePathname } from 'next/navigation';
 import { Zap, MessageCircle, Menu, X, Mail } from 'lucide-react';
 
 // Variantes de animação
@@ -22,16 +23,36 @@ const staggerContainer = {
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
-    const scrollToSection = (sectionId) => {
+    const handleNavigation = (item) => {
         setIsMobileMenuOpen(false);
 
+        if (item.isPage) {
+            router.push(item.href);
+            return;
+        }
+
+        // Se estivermos na página de galeria (ou qualquer outra rota diferente da principal)
+        // e clicarmos num link de seção, devemos navegar para a raiz com o hash
+        if (pathname !== '/') {
+            if (item.id === 'home') router.push('/');
+            else router.push(`/#${item.id}`);
+            return;
+        }
+
+        // Navegação de rolamento suave na mesma página principal
         setTimeout(() => {
-            const element = document.getElementById(sectionId);
+            if (item.id === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const element = document.getElementById(item.id);
             if (element) {
                 const header = document.querySelector('header');
                 const headerHeight = header ? header.offsetHeight : 100;
@@ -42,15 +63,16 @@ export default function Header() {
                     behavior: 'smooth'
                 });
             }
-        }, 150); // Small delay to let the menu closing animation start and avoid layout jumps
+        }, 150);
     };
 
     const navLinks = [
-        { id: 'home', label: 'Início' },
-        { id: 'services', label: 'Serviços' },
-        { id: 'clients', label: 'Clientes' },
-        { id: 'about', label: 'Sobre' },
-        { id: 'contact', label: 'Contato' }
+        { id: 'home', label: 'Início', isPage: false },
+        { id: 'services', label: 'Serviços', isPage: false },
+        { id: 'gallery', label: 'Galeria', isPage: true, href: '/galeria' },
+        { id: 'clients', label: 'Clientes', isPage: false },
+        { id: 'about', label: 'Sobre', isPage: false },
+        { id: 'contact', label: 'Contato', isPage: false }
     ];
 
     return (
@@ -97,7 +119,7 @@ export default function Header() {
                             {navLinks.map((item) => (
                                 <button
                                     key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
+                                    onClick={() => handleNavigation(item)}
                                     className="text-gray-600 hover:text-emerald-700 font-medium transition-colors duration-200 relative group text-sm"
                                 >
                                     {item.label}
@@ -162,7 +184,7 @@ export default function Header() {
                                     type="button"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        scrollToSection(item.id);
+                                        handleNavigation(item);
                                     }}
                                     className="text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors"
                                 >

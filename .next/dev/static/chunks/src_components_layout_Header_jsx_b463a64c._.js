@@ -11,6 +11,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/message-circle.js [app-client] (ecmascript) <export default as MessageCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
@@ -18,6 +19,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -72,13 +74,34 @@ const staggerContainer = {
 function Header() {
     _s();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const toggleMobileMenu = ()=>{
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
-    const scrollToSection = (sectionId)=>{
+    const handleNavigation = (item)=>{
         setIsMobileMenuOpen(false);
+        if (item.isPage) {
+            router.push(item.href);
+            return;
+        }
+        // Se estivermos na página de galeria (ou qualquer outra rota diferente da principal)
+        // e clicarmos num link de seção, devemos navegar para a raiz com o hash
+        if (pathname !== '/') {
+            if (item.id === 'home') router.push('/');
+            else router.push(`/#${item.id}`);
+            return;
+        }
+        // Navegação de rolamento suave na mesma página principal
         setTimeout(()=>{
-            const element = document.getElementById(sectionId);
+            if (item.id === 'home') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+            const element = document.getElementById(item.id);
             if (element) {
                 const header = document.querySelector('header');
                 const headerHeight = header ? header.offsetHeight : 100;
@@ -88,28 +111,39 @@ function Header() {
                     behavior: 'smooth'
                 });
             }
-        }, 150); // Small delay to let the menu closing animation start and avoid layout jumps
+        }, 150);
     };
     const navLinks = [
         {
             id: 'home',
-            label: 'Início'
+            label: 'Início',
+            isPage: false
         },
         {
             id: 'services',
-            label: 'Serviços'
+            label: 'Serviços',
+            isPage: false
+        },
+        {
+            id: 'gallery',
+            label: 'Galeria',
+            isPage: true,
+            href: '/galeria'
         },
         {
             id: 'clients',
-            label: 'Clientes'
+            label: 'Clientes',
+            isPage: false
         },
         {
             id: 'about',
-            label: 'Sobre'
+            label: 'Sobre',
+            isPage: false
         },
         {
             id: 'contact',
-            label: 'Contato'
+            label: 'Contato',
+            isPage: false
         }
     ];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].header, {
@@ -166,17 +200,17 @@ function Header() {
                                         priority: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 78,
+                                        lineNumber: 100,
                                         columnNumber: 33
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/Header.jsx",
-                                    lineNumber: 77,
+                                    lineNumber: 99,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 76,
+                                lineNumber: 98,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].nav, {
@@ -185,7 +219,7 @@ function Header() {
                                 initial: "initial",
                                 animate: "animate",
                                 children: navLinks.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>scrollToSection(item.id),
+                                        onClick: ()=>handleNavigation(item),
                                         className: "text-gray-600 hover:text-emerald-700 font-medium transition-colors duration-200 relative group text-sm",
                                         children: [
                                             item.label,
@@ -193,18 +227,18 @@ function Header() {
                                                 className: "absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                                lineNumber: 104,
+                                                lineNumber: 126,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, item.id, true, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 98,
+                                        lineNumber: 120,
                                         columnNumber: 33
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 91,
+                                lineNumber: 113,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -221,14 +255,14 @@ function Header() {
                                                 className: "w-4 h-4 mr-1.5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                                lineNumber: 119,
+                                                lineNumber: 141,
                                                 columnNumber: 33
                                             }, this),
                                             "WhatsApp"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 113,
+                                        lineNumber: 135,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -241,14 +275,14 @@ function Header() {
                                                 className: "w-4 h-4 mr-1.5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                                lineNumber: 128,
+                                                lineNumber: 150,
                                                 columnNumber: 33
                                             }, this),
                                             "Webmail"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 122,
+                                        lineNumber: 144,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -259,40 +293,40 @@ function Header() {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Header.jsx",
-                                            lineNumber: 138,
+                                            lineNumber: 160,
                                             columnNumber: 37
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/Header.jsx",
-                                            lineNumber: 140,
+                                            lineNumber: 162,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 132,
+                                        lineNumber: 154,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 109,
+                                lineNumber: 131,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/Header.jsx",
-                        lineNumber: 70,
+                        lineNumber: 92,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/Header.jsx",
-                    lineNumber: 69,
+                    lineNumber: 91,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/Header.jsx",
-                lineNumber: 63,
+                lineNumber: 85,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -321,20 +355,20 @@ function Header() {
                                     type: "button",
                                     onClick: (e)=>{
                                         e.preventDefault();
-                                        scrollToSection(item.id);
+                                        handleNavigation(item);
                                     },
                                     className: "text-left w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors",
                                     children: item.label
                                 }, item.id, false, {
                                     fileName: "[project]/src/components/layout/Header.jsx",
-                                    lineNumber: 160,
+                                    lineNumber: 182,
                                     columnNumber: 33
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "h-px bg-gray-100 my-2"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 172,
+                                lineNumber: 194,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -347,14 +381,14 @@ function Header() {
                                         className: "w-5 h-5 mr-3 text-emerald-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 179,
+                                        lineNumber: 201,
                                         columnNumber: 33
                                     }, this),
                                     "Falar no WhatsApp"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 173,
+                                lineNumber: 195,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -367,40 +401,45 @@ function Header() {
                                         className: "w-5 h-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/layout/Header.jsx",
-                                        lineNumber: 188,
+                                        lineNumber: 210,
                                         columnNumber: 33
                                     }, this),
                                     "Acessar Webmail"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/layout/Header.jsx",
-                                lineNumber: 182,
+                                lineNumber: 204,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/Header.jsx",
-                        lineNumber: 158,
+                        lineNumber: 180,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/Header.jsx",
-                    lineNumber: 151,
+                    lineNumber: 173,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/Header.jsx",
-                lineNumber: 149,
+                lineNumber: 171,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/Header.jsx",
-        lineNumber: 57,
+        lineNumber: 79,
         columnNumber: 9
     }, this);
 }
-_s(Header, "QerECOS75+B7gv+k3q7FrDf39mc=");
+_s(Header, "ZszojTpTVRgawyZXJQmQtMkt2d0=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
+    ];
+});
 _c = Header;
 var _c;
 __turbopack_context__.k.register(_c, "Header");
